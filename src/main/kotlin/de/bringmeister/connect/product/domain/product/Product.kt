@@ -2,9 +2,13 @@ package de.bringmeister.connect.product.domain.product
 
 import de.bringmeister.connect.product.application.mediadata.MediaDataUpdatedEvent
 import de.bringmeister.connect.product.domain.DomainEvent
+import org.apache.commons.lang3.builder.EqualsBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+/**
+ * The product domain entity.
+ */
 class Product {
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -56,5 +60,18 @@ class Product {
             productNumber = productNumber.productNumber
         ))
         log.info("Product media data updated. [productNumber={}]", productNumber)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is Product) {
+            return false
+        }
+        return EqualsBuilder()
+                        .append(this.productNumber, other.productNumber) // Only on the ID!
+                        .isEquals
+    }
+
+    override fun hashCode(): Int {
+        return productNumber.hashCode() // Only on the ID!
     }
 }

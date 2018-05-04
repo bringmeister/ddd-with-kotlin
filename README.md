@@ -1,6 +1,8 @@
 DDD with Kotlin
 ===============
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bringmeister/ddd-with-kotlin/master/LICENSE)
+
 This is a simple demo project to show a Domain Driven Design with Kotlin.
 
 ## Run it
@@ -9,7 +11,7 @@ This is a simple demo project to show a Domain Driven Design with Kotlin.
 ./gradlew bootRun
 ```
 
-Then:
+Then simulate an incoming event:
 
 ```
 POST to http://localhost:8080/master_data_update
@@ -58,3 +60,11 @@ After an update was received, the `Product Service` will:
 - A process flow with events ("something has happened") and commands ("now do something").
 - Value objects such as `ProductNumber.kt` or `ProductInformation.kt`.
 - A ports-and-adapters package layout.
+- An anti-corruption layer for external events - they will be transformed to internal commands.
+
+## Known Issues
+
+- We've annotated the command listeners with Guava's `@Subscribe` annotation.
+For example in `ProductService.kt`. 
+This pollutes our service layer with a dependency to the infrastructure layer.
+However, we still favour this solution, because we don't need an extra layer of command handlers by doing this.

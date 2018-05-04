@@ -1,4 +1,4 @@
-package de.bringmeister.connect.product.application
+package de.bringmeister.connect.product.application.product
 
 import com.google.common.eventbus.Subscribe
 import de.bringmeister.connect.product.domain.DomainEventBus

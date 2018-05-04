@@ -52,6 +52,8 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     compile 'com.google.guava:guava:24.1.1-jre'
+
+    compile 'org.apache.commons:commons-lang3:3.7'
 }
 
 sourceSets {
