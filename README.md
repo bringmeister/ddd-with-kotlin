@@ -1,6 +1,7 @@
 DDD with Kotlin
 ===============
 
+[![Build Status](https://img.shields.io/travis/bringmeister/ddd-with-kotlin/master.svg)](https://travis-ci.org/bringmeister/ddd-with-kotlin)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bringmeister/ddd-with-kotlin/master/LICENSE)
 
 This is a simple demo project to show a Domain Driven Design with Kotlin.
