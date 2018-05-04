@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%date {%level} [%thread] [%X{X-Trace-ID}] [%c{1.}] %maxLength{%message}{4000}%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="de.bringmeister" level="info"/>
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
