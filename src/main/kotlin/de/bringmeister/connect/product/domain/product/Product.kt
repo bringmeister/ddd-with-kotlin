@@ -61,6 +61,11 @@ class Product {
         log.info("Product media data updated. [productNumber={}]", productNumber)
     }
 
+    // Unlike value objects, a domain entity such as "Product" as an identity.
+    // This means we can identify an entity by its unique ID - not by its current
+    // data. So if we have two products with the very same product number, we
+    // consider them to be the same product. To reflect this, we overwrite equals
+    // and hashCode. Note that we don't do this for value objects!
     override fun equals(other: Any?): Boolean {
         if (other !is Product) {
             return false
