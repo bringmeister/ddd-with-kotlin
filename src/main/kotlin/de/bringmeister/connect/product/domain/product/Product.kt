@@ -10,6 +10,15 @@ import org.springframework.util.Assert
 
 /**
  * The product domain entity.
+ *
+ * This entity encapsulates all information which belongs to a product.
+ * It also provides business methods to work on this information. Data
+ * cannot be changed from outside - there are no setters.
+ *
+ * Whenever data has been changed a domain event will thrown. This event
+ * informs any listener that something has changed in the context of a
+ * product. In a real life example, those events would be published over
+ * a message broker such as Kafka, ActiveMQ or AWS Kinesis.
  */
 class Product {
 
@@ -48,8 +57,19 @@ class Product {
 
     fun updateMasterData(command: UpdateMasterDataCommand) {
 
-        // Some logic...
+        // Some logic... the domain entity knows how to update itself.
+        // It knows how it holds its own data and how to change it.
 
+        Assert.hasText(command.name, "Product name must not be empty!")
+        Assert.hasText(command.description, "Product description must not be empty!")
+
+        this.productInformation = ProductInformation(
+            name = command.name,
+            description = command.description
+        )
+
+        // In the end, it throws an event - something has happened! Any
+        // other context can react listen on this event and react to it.
         domainEventHolder.raise(MasterDataUpdatedEvent(
             productNumber = productNumber.productNumber
         ))
@@ -58,10 +78,15 @@ class Product {
 
     fun updateMediaData(command: UpdateMediaDataCommand) {
 
-        // Some logic...
+        // Some logic... the domain entity knows how to update itself.
+        // It knows how it holds its own data and how to change it.
+
+        Assert.hasText(command.imageUrl, "Image URL must not be empty!")
 
         this.imageUrl = command.imageUrl
 
+        // In the end, it throws an event - something has happened! Any
+        // other context can react listen on this event and react to it.
         domainEventHolder.raise(MediaDataUpdatedEvent(
             productNumber = productNumber.productNumber
         ))
