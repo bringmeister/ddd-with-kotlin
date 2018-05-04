@@ -2,6 +2,7 @@ package de.bringmeister.connect.product.domain.product
 
 import de.bringmeister.connect.product.application.mediadata.MediaDataUpdatedEvent
 import de.bringmeister.connect.product.domain.DomainEvent
+import de.bringmeister.connect.product.domain.DomainEventHolder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory
 class Product {
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
-    private val occurredEvents: MutableList<DomainEvent> = mutableListOf()
+    private val domainEventHolder: DomainEventHolder = DomainEventHolder()
 
     val productNumber: ProductNumber
 
@@ -28,23 +29,21 @@ class Product {
             description = command.description
         )
 
-        occurredEvents.add(ProductCreatedEvent(
+        domainEventHolder.raise(ProductCreatedEvent(
             productNumber = productNumber.productNumber
         ))
         log.info("New product created. [productNumber={}]", productNumber)
     }
 
     fun occuredEvents(): List<DomainEvent> {
-        val events = this.occurredEvents.toMutableList()
-        this.occurredEvents.clear()
-        return events
+        return domainEventHolder.occurredEvents()
     }
 
     fun updateMasterData(command: UpdateMasterDataCommand) {
 
         // Some logic...
 
-        occurredEvents.add(MasterDataUpdatedEvent(
+        domainEventHolder.raise(MasterDataUpdatedEvent(
             productNumber = productNumber.productNumber
         ))
         log.info("Product master data updated. [productNumber={}]", productNumber)
@@ -56,7 +55,7 @@ class Product {
 
         this.imageUrl = command.imageUrl
 
-        occurredEvents.add(MediaDataUpdatedEvent(
+        domainEventHolder.raise(MediaDataUpdatedEvent(
             productNumber = productNumber.productNumber
         ))
         log.info("Product media data updated. [productNumber={}]", productNumber)
