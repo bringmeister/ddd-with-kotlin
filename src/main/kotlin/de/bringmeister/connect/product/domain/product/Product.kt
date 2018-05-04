@@ -6,6 +6,7 @@ import de.bringmeister.connect.product.domain.DomainEventHolder
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.util.Assert
 
 /**
  * The product domain entity.
@@ -17,10 +18,16 @@ class Product {
 
     val productNumber: ProductNumber
 
-    private var productInformation: ProductInformation
-    private var imageUrl: String? = null // we  have none until we get the first media data update
+    var productInformation: ProductInformation
+        private set
 
-    constructor(command: CreatNewProductCommand) {
+    var imageUrl: String? = null // we  have none until we get the first media data update
+        private set
+
+    constructor(command: CreateNewProductCommand) {
+
+        Assert.hasText(command.name, "Product name must not be empty!")
+        Assert.hasText(command.description, "Product description must not be empty!")
 
         productNumber = ProductNumber(command.productNumber)
 
@@ -35,7 +42,7 @@ class Product {
         log.info("New product created. [productNumber={}]", productNumber)
     }
 
-    fun occuredEvents(): List<DomainEvent> {
+    fun occurredEvents(): List<DomainEvent> {
         return domainEventHolder.occurredEvents()
     }
 

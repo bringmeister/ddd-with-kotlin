@@ -2,7 +2,7 @@ package de.bringmeister.connect.product.application.product
 
 import com.google.common.eventbus.Subscribe
 import de.bringmeister.connect.product.domain.DomainEventBus
-import de.bringmeister.connect.product.domain.product.CreatNewProductCommand
+import de.bringmeister.connect.product.domain.product.CreateNewProductCommand
 import de.bringmeister.connect.product.domain.product.Product
 import de.bringmeister.connect.product.domain.product.ProductNumber
 import de.bringmeister.connect.product.domain.product.ProductRepository
@@ -19,10 +19,10 @@ class ProductService(private val productRepository: ProductRepository,
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
     @Subscribe
-    fun handle(command: CreatNewProductCommand) {
+    fun handle(command: CreateNewProductCommand) {
         val product = Product(command)
         productRepository.save(product)
-        domainEventBus.sendAll(product.occuredEvents())
+        domainEventBus.sendAll(product.occurredEvents())
     }
 
     @Subscribe
@@ -31,7 +31,7 @@ class ProductService(private val productRepository: ProductRepository,
         val product = productRepository.find(productNumber)
         product.updateMasterData(command)
         productRepository.save(product)
-        domainEventBus.sendAll(product.occuredEvents())
+        domainEventBus.sendAll(product.occurredEvents())
     }
 
     @Subscribe
@@ -41,7 +41,7 @@ class ProductService(private val productRepository: ProductRepository,
             val product = productRepository.find(productNumber)
             product.updateMediaData(command)
             productRepository.save(product)
-            domainEventBus.sendAll(product.occuredEvents())
+            domainEventBus.sendAll(product.occurredEvents())
         } else {
             log.info("Media data ignored as product doesn't exist. [productNumber={}]", productNumber)
         }

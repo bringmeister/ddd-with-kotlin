@@ -2,7 +2,7 @@ package de.bringmeister.connect.product.ports.messages
 
 import com.google.common.eventbus.Subscribe
 import de.bringmeister.connect.product.domain.CommandBus
-import de.bringmeister.connect.product.domain.product.CreatNewProductCommand
+import de.bringmeister.connect.product.domain.product.CreateNewProductCommand
 import de.bringmeister.connect.product.domain.product.ProductNumber
 import de.bringmeister.connect.product.domain.product.ProductRepository
 import de.bringmeister.connect.product.domain.product.UpdateMasterDataCommand
@@ -31,7 +31,7 @@ class MasterDataUpdateAvailableEventListener(private val commandBus: CommandBus,
 
         } else {
 
-            commandBus.send(CreatNewProductCommand(
+            commandBus.send(CreateNewProductCommand(
                 productNumber = productNumber.productNumber,
                 name = domainEvent.name,
                 description = domainEvent.description
