@@ -1,6 +1,5 @@
 package de.bringmeister.connect.product.application.product
 
-import com.google.common.eventbus.Subscribe
 import de.bringmeister.connect.product.domain.DomainEventBus
 import de.bringmeister.connect.product.domain.product.CreateNewProductCommand
 import de.bringmeister.connect.product.domain.product.Product
@@ -10,6 +9,7 @@ import de.bringmeister.connect.product.domain.product.UpdateMasterDataCommand
 import de.bringmeister.connect.product.domain.product.UpdateMediaDataCommand
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
 
 @Service
@@ -18,14 +18,14 @@ class ProductService(private val productRepository: ProductRepository,
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    @Subscribe
+    @EventListener
     fun handle(command: CreateNewProductCommand) {
         val product = Product(command)
         productRepository.save(product)
         domainEventBus.sendAll(product.occurredEvents())
     }
 
-    @Subscribe
+    @EventListener
     fun handle(command: UpdateMasterDataCommand) {
         val productNumber = ProductNumber(command.productNumber)
         val product = productRepository.find(productNumber)
@@ -34,7 +34,7 @@ class ProductService(private val productRepository: ProductRepository,
         domainEventBus.sendAll(product.occurredEvents())
     }
 
-    @Subscribe
+    @EventListener
     fun handle(command: UpdateMediaDataCommand) {
         val productNumber = ProductNumber(command.productNumber)
         if (productRepository.exists(productNumber)) {

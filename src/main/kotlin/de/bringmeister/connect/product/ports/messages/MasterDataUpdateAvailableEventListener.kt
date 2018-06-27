@@ -1,19 +1,19 @@
 package de.bringmeister.connect.product.ports.messages
 
-import com.google.common.eventbus.Subscribe
 import de.bringmeister.connect.product.domain.CommandBus
 import de.bringmeister.connect.product.domain.product.CreateNewProductCommand
 import de.bringmeister.connect.product.domain.product.ProductNumber
 import de.bringmeister.connect.product.domain.product.ProductRepository
 import de.bringmeister.connect.product.domain.product.UpdateMasterDataCommand
 import de.bringmeister.connect.product.ports.rest.MasterDataUpdateAvailableEvent
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
 class MasterDataUpdateAvailableEventListener(private val commandBus: CommandBus,
                                              private val productRepository: ProductRepository) {
 
-    @Subscribe
+    @EventListener
     fun handle(domainEvent: MasterDataUpdateAvailableEvent) {
 
         Thread.sleep(5000)
