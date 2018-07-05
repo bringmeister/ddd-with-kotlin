@@ -1,12 +1,12 @@
 package de.bringmeister.connect.product.application.mediadata
 
-import org.springframework.context.event.EventListener
+import de.bringmeister.connect.product.domain.CommandListener
 import org.springframework.stereotype.Service
 
 @Service
 class MediaDataService(private val mediaDataRegistry: MediaDataRegistry) {
 
-    @EventListener
+    @CommandListener
     fun handle(command: RegisterForMediaDataUpdatesCommand) {
         mediaDataRegistry.handle(command)
     }

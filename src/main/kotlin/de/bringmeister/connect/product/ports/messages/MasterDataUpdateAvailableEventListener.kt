@@ -1,12 +1,12 @@
 package de.bringmeister.connect.product.ports.messages
 
 import de.bringmeister.connect.product.domain.CommandBus
+import de.bringmeister.connect.product.domain.EventListener
 import de.bringmeister.connect.product.domain.product.CreateNewProductCommand
 import de.bringmeister.connect.product.domain.product.ProductNumber
 import de.bringmeister.connect.product.domain.product.ProductRepository
 import de.bringmeister.connect.product.domain.product.UpdateMasterDataCommand
 import de.bringmeister.connect.product.ports.rest.MasterDataUpdateAvailableEvent
-import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component

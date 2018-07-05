@@ -3,7 +3,7 @@ package de.bringmeister.connect.product.ports.messages
 import de.bringmeister.connect.product.application.cdn.UpdateCdnCommand
 import de.bringmeister.connect.product.application.mediadata.MediaDataUpdatedEvent
 import de.bringmeister.connect.product.domain.CommandBus
-import org.springframework.context.event.EventListener
+import de.bringmeister.connect.product.domain.EventListener
 import org.springframework.stereotype.Component
 
 @Component
