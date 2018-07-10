@@ -115,3 +115,8 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/osx,java,gradle,intellij
+
+.classpath
+.project
+.settings
+bin

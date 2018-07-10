@@ -1,9 +1,9 @@
 package de.bringmeister.connect.product.ports.messages
 
 import de.bringmeister.connect.product.domain.CommandBus
+import de.bringmeister.connect.product.domain.EventListener
 import de.bringmeister.connect.product.domain.product.UpdateMediaDataCommand
 import de.bringmeister.connect.product.ports.rest.MediaDataUpdateAvailableEvent
-import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
