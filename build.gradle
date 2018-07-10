@@ -35,17 +35,14 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-/**
-configurations {
-    all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
-    all*.exclude module: 'commons-logging'
+configurations.all {
+    resolutionStrategy {
+        failOnVersionConflict()
+    }
 }
-*/
-
 
 dependencies {
 
-    // compile 'org.springframework.boot:spring-boot-starter-log4j2'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.21"
     compile "org.jetbrains.kotlin:kotlin-reflect:1.2.21"
@@ -55,8 +52,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.7'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-    // testCompile 'com.nhaarman:mockito-kotlin:1.5.0'
-    // testCompile "org.assertj:assertj-core:3.9.1"
 }
 
 sourceSets {
