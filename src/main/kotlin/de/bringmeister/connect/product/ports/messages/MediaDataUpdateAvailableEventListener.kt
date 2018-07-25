@@ -10,12 +10,14 @@ import org.springframework.stereotype.Component
 class MediaDataUpdateAvailableEventListener(private val commandBus: CommandBus) {
 
     @EventListener
-    fun handle(domainEvent: MediaDataUpdateAvailableEvent) {
+    fun handle(event: MediaDataUpdateAvailableEvent) {
 
-        commandBus.send(UpdateMediaDataCommand(
-            productNumber = domainEvent.productNumber,
-            imageUrl = domainEvent.imageUrl
-        ))
+        commandBus.send(
+            UpdateMediaDataCommand(
+                productNumber = event.productNumber,
+                imageUrl = event.imageUrl
+            )
+        )
     }
 }
 

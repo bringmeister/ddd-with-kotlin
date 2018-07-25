@@ -1,14 +1,14 @@
 package de.bringmeister.connect.product.infrastructure.spring
 
-import de.bringmeister.connect.product.domain.DomainEvent
-import de.bringmeister.connect.product.domain.DomainEventBus
+import de.bringmeister.connect.product.domain.Event
+import de.bringmeister.connect.product.domain.EventBus
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 
 @Component
-class SpringEventBus(private val publisher: ApplicationEventPublisher): DomainEventBus {
+class SpringEventBus(private val publisher: ApplicationEventPublisher) : EventBus {
 
-    override fun send(domainEvent: DomainEvent) {
-        publisher.publishEvent(domainEvent)
+    override fun send(event: Event) {
+        publisher.publishEvent(event)
     }
 }

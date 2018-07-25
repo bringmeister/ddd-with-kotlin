@@ -12,7 +12,7 @@ class ProductTest {
         val command = aCreateNewProductCommand()
         val product = Product(command)
 
-        assertThat(product.productNumber.stringValue()).isEqualTo("12345")
+        assertThat(product.id.stringValue()).isEqualTo("P-000001")
         assertThat(product.productInformation.name).isEqualTo("Coca Cola")
         assertThat(product.productInformation.description).isEqualTo("This is a bottle of tasty Coca Cola!")
         assertThat(product.imageUrl).isNull()
@@ -26,7 +26,7 @@ class ProductTest {
 
         val events = product.occurredEvents()
         assertThat(events).hasSize(1)
-        assertThat(events[0]).isEqualTo(ProductCreatedEvent(productNumber = "12345"))
+        assertThat(events[0]).isEqualTo(ProductCreatedEvent(productNumber = ProductNumber("P-000001")))
     }
 
     @Test
@@ -41,13 +41,15 @@ class ProductTest {
 
     @Test
     fun `should throw exception on empty name`() {
-        assertThatThrownBy({
-            Product(CreateNewProductCommand(
-                productNumber = "12345",
-                name = "", // empty!
-                description = "This is a bottle of tasty Coca Cola!"
-            ))
-        })
+        assertThatThrownBy {
+            Product(
+                CreateNewProductCommand(
+                    productNumber = ProductNumber("P-000001"),
+                    name = "", // empty!
+                    description = "This is a bottle of tasty Coca Cola!"
+                )
+            )
+        }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasNoCause()
             .hasMessageContaining("Product name must not be empty!")
@@ -55,13 +57,15 @@ class ProductTest {
 
     @Test
     fun `should throw exception on empty description`() {
-        assertThatThrownBy({
-            Product(CreateNewProductCommand(
-                productNumber = "12345",
-                name = "Coca Cola",
-                description = "" // empty!
-            ))
-        })
+        assertThatThrownBy {
+            Product(
+                CreateNewProductCommand(
+                    productNumber = ProductNumber("P-000001"),
+                    name = "Coca Cola",
+                    description = "" // empty!
+                )
+            )
+        }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasNoCause()
             .hasMessageContaining("Product description must not be empty!")
@@ -73,24 +77,28 @@ class ProductTest {
         // We've got two products with different values but with
         // the same ID - so they represent the same product!
 
-        val product1 = Product(CreateNewProductCommand(
-            productNumber = "12345",
-            name = "Coca Cola",
-            description = "This is a bottle of tasty Coca Cola!"
-        ))
+        val product1 = Product(
+            CreateNewProductCommand(
+                productNumber = ProductNumber("P-000001"),
+                name = "Coca Cola",
+                description = "This is a bottle of tasty Coca Cola!"
+            )
+        )
 
-        val product2 = Product(CreateNewProductCommand(
-            productNumber = "12345",
-            name = "Coca Cola",
-            description = "This is a bottle of tasty Coca Cola!"
-        ))
+        val product2 = Product(
+            CreateNewProductCommand(
+                productNumber = ProductNumber("P-000001"),
+                name = "Coca Cola",
+                description = "This is a bottle of tasty Coca Cola!"
+            )
+        )
 
         assertThat(product1).isEqualTo(product2)
     }
 
     private fun aCreateNewProductCommand(): CreateNewProductCommand {
         return CreateNewProductCommand(
-            productNumber = "12345",
+            productNumber = ProductNumber("P-000001"),
             name = "Coca Cola",
             description = "This is a bottle of tasty Coca Cola!"
         )

@@ -1,6 +1,9 @@
 package de.bringmeister.connect.product.ports.rest
 
-import de.bringmeister.connect.product.domain.DomainEvent
+import de.bringmeister.connect.product.domain.Event
+import de.bringmeister.connect.product.domain.product.ProductNumber
 
-data class MediaDataUpdateAvailableEvent(val productNumber: String,
-                                         val imageUrl: String) : DomainEvent
+data class MediaDataUpdateAvailableEvent(
+    val productNumber: ProductNumber,
+    val imageUrl: String
+) : Event

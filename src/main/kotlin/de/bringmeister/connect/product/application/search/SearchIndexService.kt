@@ -12,7 +12,10 @@ class SearchIndexService() {
 
     @CommandListener
     fun handle(command: UpdateSearchIndexCommand) {
-        Thread.sleep(1000)
+
+        // Here would be the place for some business logic
+        // interacting with the external search index.
+
         log.info("Search index has been updated. [productNumber={}]", command.productNumber)
     }
 }
