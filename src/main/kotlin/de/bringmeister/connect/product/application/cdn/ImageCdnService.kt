@@ -12,7 +12,10 @@ class ImageCdnService() {
 
     @CommandListener
     fun handle(command: UpdateCdnCommand) {
-        Thread.sleep(4000)
+
+        // Here would be the place for some business logic
+        // interacting with the external image CDN.
+
         log.info("Image CDN has been updated. [productNumber={}]", command.productNumber)
     }
 }

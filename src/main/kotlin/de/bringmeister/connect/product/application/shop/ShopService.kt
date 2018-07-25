@@ -12,7 +12,10 @@ class ShopService() {
 
     @CommandListener
     fun handle(command: UpdateShopCommand) {
-        Thread.sleep(2000)
+
+        // Here would be the place for some business logic
+        // interacting with the external shop system.
+
         log.info("Shop has been updated. [productNumber={}]", command.productNumber)
     }
 }

@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component
 class MasterDataUpdatedEventListener(private val commandBus: CommandBus) {
 
     @EventListener
-    fun handle(domainEvent: MasterDataUpdatedEvent) {
+    fun handle(event: MasterDataUpdatedEvent) {
 
         commandBus.send(
             UpdateShopCommand(
-                productNumber = domainEvent.productNumber
+                productNumber = event.productNumber
             )
         )
 
         commandBus.send(
             UpdateSearchIndexCommand(
-                productNumber = domainEvent.productNumber
+                productNumber = event.productNumber
             )
         )
     }

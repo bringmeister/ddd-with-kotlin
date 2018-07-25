@@ -20,6 +20,10 @@ class StubbedProductRepository : ProductRepository {
     }
 
     override fun save(product: Product) {
-        products[product.productNumber.productNumber] = product
+        products[product.id.productNumber] = product
+    }
+
+    fun clear() {
+        products.clear()
     }
 }

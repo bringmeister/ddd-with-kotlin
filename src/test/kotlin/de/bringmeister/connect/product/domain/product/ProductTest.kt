@@ -12,7 +12,7 @@ class ProductTest {
         val command = aCreateNewProductCommand()
         val product = Product(command)
 
-        assertThat(product.productNumber.stringValue()).isEqualTo("P-000001")
+        assertThat(product.id.stringValue()).isEqualTo("P-000001")
         assertThat(product.productInformation.name).isEqualTo("Coca Cola")
         assertThat(product.productInformation.description).isEqualTo("This is a bottle of tasty Coca Cola!")
         assertThat(product.imageUrl).isNull()
@@ -26,7 +26,7 @@ class ProductTest {
 
         val events = product.occurredEvents()
         assertThat(events).hasSize(1)
-        assertThat(events[0]).isEqualTo(ProductCreatedEvent(productNumber = "P-000001"))
+        assertThat(events[0]).isEqualTo(ProductCreatedEvent(productNumber = ProductNumber("P-000001")))
     }
 
     @Test
@@ -44,7 +44,7 @@ class ProductTest {
         assertThatThrownBy {
             Product(
                 CreateNewProductCommand(
-                    productNumber = "P-000001",
+                    productNumber = ProductNumber("P-000001"),
                     name = "", // empty!
                     description = "This is a bottle of tasty Coca Cola!"
                 )
@@ -60,7 +60,7 @@ class ProductTest {
         assertThatThrownBy {
             Product(
                 CreateNewProductCommand(
-                    productNumber = "P-000001",
+                    productNumber = ProductNumber("P-000001"),
                     name = "Coca Cola",
                     description = "" // empty!
                 )
@@ -79,7 +79,7 @@ class ProductTest {
 
         val product1 = Product(
             CreateNewProductCommand(
-                productNumber = "P-000001",
+                productNumber = ProductNumber("P-000001"),
                 name = "Coca Cola",
                 description = "This is a bottle of tasty Coca Cola!"
             )
@@ -87,7 +87,7 @@ class ProductTest {
 
         val product2 = Product(
             CreateNewProductCommand(
-                productNumber = "P-000001",
+                productNumber = ProductNumber("P-000001"),
                 name = "Coca Cola",
                 description = "This is a bottle of tasty Coca Cola!"
             )
@@ -98,7 +98,7 @@ class ProductTest {
 
     private fun aCreateNewProductCommand(): CreateNewProductCommand {
         return CreateNewProductCommand(
-            productNumber = "P-000001",
+            productNumber = ProductNumber("P-000001"),
             name = "Coca Cola",
             description = "This is a bottle of tasty Coca Cola!"
         )

@@ -1,6 +1,7 @@
 package de.bringmeister.connect.product.ports.rest
 
-import de.bringmeister.connect.product.domain.DomainEventBus
+import de.bringmeister.connect.product.domain.EventBus
+import de.bringmeister.connect.product.domain.product.ProductNumber
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -13,16 +14,18 @@ import org.springframework.web.bind.annotation.RestController
  * See the "README.md" for an overview of the business process!
  */
 @RestController
-class DemoController(private val domainEventBus: DomainEventBus) {
+class DemoController(private val eventBus: EventBus) {
 
     @PostMapping("/master_data_update")
     fun masterDataUpdate() {
 
-        // Simulate an incoming event!
+        // Simulate an incoming event from another external system.
+        // In our example, this event would be thrown by the external
+        // "Master Data Service".
 
-        domainEventBus.send(
+        eventBus.send(
             MasterDataUpdateAvailableEvent(
-                articleNumber = "P-000001",
+                productNumber = ProductNumber("P-000001"),
                 name = "Coca Cola",
                 description = "A bottle of tasty Coca Cola"
             )
@@ -32,11 +35,13 @@ class DemoController(private val domainEventBus: DomainEventBus) {
     @PostMapping("/media_data_update")
     fun mediaDataUpdate() {
 
-        // Simulate an incoming event!
+        // Simulate an incoming event from another external system.
+        // In our example, this event would be thrown by the external
+        // "Media Data Service".
 
-        domainEventBus.send(
+        eventBus.send(
             MediaDataUpdateAvailableEvent(
-                productNumber = "P-000001",
+                productNumber = ProductNumber("P-000001"),
                 imageUrl = "www.my-domain.com/my-image.jpg"
             )
         )
