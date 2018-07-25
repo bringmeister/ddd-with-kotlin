@@ -67,7 +67,7 @@ class AcceptanceTest {
 
         val input = MasterDataUpdateAvailableEvent(productNumber, name, description)
 
-        val expectedMessages = listOf(
+        val expectedMessages = setOf(
             input,
             CreateNewProductCommand(productNumber, name, description),
             ProductCreatedEvent(productNumber),
@@ -93,7 +93,7 @@ class AcceptanceTest {
 
         val input = MasterDataUpdateAvailableEvent(productNumber, name, description)
 
-        val expectedMessages = listOf(
+        val expectedMessages = setOf(
             input,
             UpdateMasterDataCommand(productNumber, name, description),
             MasterDataUpdatedEvent(productNumber),
@@ -112,7 +112,7 @@ class AcceptanceTest {
 
         val input = MediaDataUpdateAvailableEvent(productNumber, url)
 
-        val expectedMessages = listOf(
+        val expectedMessages = setOf(
             input,
             UpdateMediaDataCommand(productNumber, url)
         )
@@ -130,7 +130,7 @@ class AcceptanceTest {
 
         val input = MediaDataUpdateAvailableEvent(productNumber, url)
 
-        val expectedMessages = listOf(
+        val expectedMessages = setOf(
             input,
             UpdateMediaDataCommand(productNumber, url),
             MediaDataUpdatedEvent(productNumber),
@@ -143,7 +143,7 @@ class AcceptanceTest {
         assertThat(recordingHandler.messages).isEqualTo(expectedMessages)
     }
 
-    private fun waitFor(expectedEvents: List<Any>) {
+    private fun waitFor(expectedEvents: Set<Any>) {
         latch = CountDownLatch(expectedEvents.size)
         latch.await(10, SECONDS)
     }
@@ -158,7 +158,7 @@ class AcceptanceTest {
     @Service
     class RecordingHandler {
 
-        val messages = mutableListOf<Any>()
+        val messages = mutableSetOf<Any>()
 
         @EventListener
         fun handle(event: Event) {
