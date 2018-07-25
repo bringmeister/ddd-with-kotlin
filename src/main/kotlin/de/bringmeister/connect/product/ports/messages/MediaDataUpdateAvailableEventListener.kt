@@ -12,10 +12,12 @@ class MediaDataUpdateAvailableEventListener(private val commandBus: CommandBus) 
     @EventListener
     fun handle(domainEvent: MediaDataUpdateAvailableEvent) {
 
-        commandBus.send(UpdateMediaDataCommand(
-            productNumber = domainEvent.productNumber,
-            imageUrl = domainEvent.imageUrl
-        ))
+        commandBus.send(
+            UpdateMediaDataCommand(
+                productNumber = domainEvent.productNumber,
+                imageUrl = domainEvent.imageUrl
+            )
+        )
     }
 }
 

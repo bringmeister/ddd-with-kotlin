@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
-class ProductService(private val productRepository: ProductRepository,
-                     private val domainEventBus: DomainEventBus) {
+class ProductService(
+    private val productRepository: ProductRepository,
+    private val domainEventBus: DomainEventBus
+) {
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 

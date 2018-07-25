@@ -1,15 +1,15 @@
 package de.bringmeister.connect.product.infrastructure.stubs
 
-import de.bringmeister.connect.product.domain.DomainEventBus
 import de.bringmeister.connect.product.application.mediadata.MediaDataRegistry
 import de.bringmeister.connect.product.application.mediadata.RegisterForMediaDataUpdatesCommand
+import de.bringmeister.connect.product.domain.DomainEventBus
 import de.bringmeister.connect.product.ports.rest.MediaDataUpdateAvailableEvent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class StubbedMediaDataRegistry(private val domainEventBus: DomainEventBus): MediaDataRegistry {
+class StubbedMediaDataRegistry(private val domainEventBus: DomainEventBus) : MediaDataRegistry {
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -19,9 +19,11 @@ class StubbedMediaDataRegistry(private val domainEventBus: DomainEventBus): Medi
 
         Thread.sleep(5000)
 
-        domainEventBus.send(MediaDataUpdateAvailableEvent(
-            productNumber = command.productNumber,
-            imageUrl = "www.my-domain.com/my-new-image.jpg"
-        ))
+        domainEventBus.send(
+            MediaDataUpdateAvailableEvent(
+                productNumber = command.productNumber,
+                imageUrl = "www.my-domain.com/my-new-image.jpg"
+            )
+        )
     }
 }

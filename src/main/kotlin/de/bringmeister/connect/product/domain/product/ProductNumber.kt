@@ -4,10 +4,13 @@ import org.springframework.util.Assert
 
 data class ProductNumber(val productNumber: String) {
 
-    private val justNumbersRegex = Regex("[0-9]+")
+    private val productNumberFormat = Regex("P-[0-9]{6}")
 
     init {
-        Assert.state(productNumber.matches(justNumbersRegex), "Product number has an invalid format: ${productNumber}")
+        Assert.state(
+            productNumber.matches(productNumberFormat),
+            "Product number has an invalid format: ${productNumber}"
+        )
     }
 
     fun stringValue(): String {

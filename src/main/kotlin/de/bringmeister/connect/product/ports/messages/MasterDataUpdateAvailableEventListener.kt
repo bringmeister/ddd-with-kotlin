@@ -10,8 +10,10 @@ import de.bringmeister.connect.product.ports.rest.MasterDataUpdateAvailableEvent
 import org.springframework.stereotype.Component
 
 @Component
-class MasterDataUpdateAvailableEventListener(private val commandBus: CommandBus,
-                                             private val productRepository: ProductRepository) {
+class MasterDataUpdateAvailableEventListener(
+    private val commandBus: CommandBus,
+    private val productRepository: ProductRepository
+) {
 
     @EventListener
     fun handle(domainEvent: MasterDataUpdateAvailableEvent) {
@@ -23,19 +25,22 @@ class MasterDataUpdateAvailableEventListener(private val commandBus: CommandBus,
 
         if (productExists) {
 
-            commandBus.send(UpdateMasterDataCommand(
-                productNumber = productNumber.productNumber,
-                name = domainEvent.name,
-                description = domainEvent.description
-            ))
-
+            commandBus.send(
+                UpdateMasterDataCommand(
+                    productNumber = productNumber.productNumber,
+                    name = domainEvent.name,
+                    description = domainEvent.description
+                )
+            )
         } else {
 
-            commandBus.send(CreateNewProductCommand(
-                productNumber = productNumber.productNumber,
-                name = domainEvent.name,
-                description = domainEvent.description
-            ))
+            commandBus.send(
+                CreateNewProductCommand(
+                    productNumber = productNumber.productNumber,
+                    name = domainEvent.name,
+                    description = domainEvent.description
+                )
+            )
         }
     }
 }

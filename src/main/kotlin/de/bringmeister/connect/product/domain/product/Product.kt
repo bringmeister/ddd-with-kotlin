@@ -45,9 +45,11 @@ class Product {
             description = command.description
         )
 
-        domainEventHolder.raise(ProductCreatedEvent(
-            productNumber = productNumber.productNumber
-        ))
+        domainEventHolder.raise(
+            ProductCreatedEvent(
+                productNumber = productNumber.productNumber
+            )
+        )
         log.info("New product created. [productNumber={}]", productNumber)
     }
 
@@ -70,9 +72,11 @@ class Product {
 
         // In the end, it throws an event - something has happened! Any
         // other context can react listen on this event and react to it.
-        domainEventHolder.raise(MasterDataUpdatedEvent(
-            productNumber = productNumber.productNumber
-        ))
+        domainEventHolder.raise(
+            MasterDataUpdatedEvent(
+                productNumber = productNumber.productNumber
+            )
+        )
         log.info("Product master data updated. [productNumber={}]", productNumber)
     }
 
@@ -87,9 +91,11 @@ class Product {
 
         // In the end, it throws an event - something has happened! Any
         // other context can react listen on this event and react to it.
-        domainEventHolder.raise(MediaDataUpdatedEvent(
-            productNumber = productNumber.productNumber
-        ))
+        domainEventHolder.raise(
+            MediaDataUpdatedEvent(
+                productNumber = productNumber.productNumber
+            )
+        )
         log.info("Product media data updated. [productNumber={}]", productNumber)
     }
 
@@ -103,8 +109,8 @@ class Product {
             return false
         }
         return EqualsBuilder()
-                        .append(this.productNumber, other.productNumber) // Only on the ID!
-                        .isEquals
+            .append(this.productNumber, other.productNumber) // Only on the ID!
+            .isEquals
     }
 
     override fun hashCode(): Int {

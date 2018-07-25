@@ -20,11 +20,13 @@ class DemoController(private val domainEventBus: DomainEventBus) {
 
         // Simulate an incoming event!
 
-        domainEventBus.send(MasterDataUpdateAvailableEvent(
-            articleNumber = "345322523",
-            name = "Coca Cola",
-            description = "A bottle of tasty Coca Cola"
-        ))
+        domainEventBus.send(
+            MasterDataUpdateAvailableEvent(
+                articleNumber = "P-000001",
+                name = "Coca Cola",
+                description = "A bottle of tasty Coca Cola"
+            )
+        )
     }
 
     @PostMapping("/media_data_update")
@@ -32,11 +34,11 @@ class DemoController(private val domainEventBus: DomainEventBus) {
 
         // Simulate an incoming event!
 
-        domainEventBus.send(MediaDataUpdateAvailableEvent(
-            productNumber = "345322523",
-            imageUrl = "www.my-domain.com/my-image.jpg"
-        ))
+        domainEventBus.send(
+            MediaDataUpdateAvailableEvent(
+                productNumber = "P-000001",
+                imageUrl = "www.my-domain.com/my-image.jpg"
+            )
+        )
     }
-
-
 }

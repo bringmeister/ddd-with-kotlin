@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 
 @Component
-class SpringEventBus(private val publisher: ApplicationEventPublisher): DomainEventBus {
+class SpringEventBus(private val publisher: ApplicationEventPublisher) : DomainEventBus {
 
     override fun send(domainEvent: DomainEvent) {
         publisher.publishEvent(domainEvent)
