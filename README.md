@@ -6,6 +6,8 @@ DDD with Kotlin
 
 This is a simple demo project to show a Domain Driven Design with Kotlin.
 
+Note that there is a similar version of this demo which using event sourcing at [event-sourcing-with-kotlin](https://github.com/bringmeister/event-sourcing-with-kotlin).
+
 ## Run it
 
 ```
