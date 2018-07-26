@@ -1,6 +1,7 @@
 package de.bringmeister.connect.product
 
 import de.bringmeister.connect.product.AcceptanceTest.RecordingHandler
+import de.bringmeister.connect.product.AcceptanceTest.RecordingHandlerAssert.Companion.assertThat
 import de.bringmeister.connect.product.application.cdn.UpdateCdnCommand
 import de.bringmeister.connect.product.application.mediadata.RegisterForMediaDataUpdatesCommand
 import de.bringmeister.connect.product.application.search.UpdateSearchIndexCommand
@@ -21,7 +22,7 @@ import de.bringmeister.connect.product.domain.product.UpdateMediaDataCommand
 import de.bringmeister.connect.product.infrastructure.stubs.StubbedProductRepository
 import de.bringmeister.connect.product.ports.rest.MasterDataUpdateAvailableEvent
 import de.bringmeister.connect.product.ports.rest.MediaDataUpdateAvailableEvent
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.AbstractAssert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -81,9 +82,8 @@ class AcceptanceTest {
         )
 
         eventBus.send(input)
-        waitFor(expectedMessages)
 
-        assertThat(recordingHandler.messages).isEqualTo(expectedMessages)
+        assertThat(recordingHandler).received(expectedMessages)
     }
 
     @Test
@@ -102,9 +102,8 @@ class AcceptanceTest {
         )
 
         eventBus.send(input)
-        waitFor(expectedMessages)
 
-        assertThat(recordingHandler.messages).isEqualTo(expectedMessages)
+        assertThat(recordingHandler).received(expectedMessages)
     }
 
     @Test
@@ -118,9 +117,8 @@ class AcceptanceTest {
         )
 
         eventBus.send(input)
-        waitFor(expectedMessages)
 
-        assertThat(recordingHandler.messages).isEqualTo(expectedMessages)
+        assertThat(recordingHandler).received(expectedMessages)
     }
 
     @Test
@@ -138,14 +136,8 @@ class AcceptanceTest {
         )
 
         eventBus.send(input)
-        waitFor(expectedMessages)
 
-        assertThat(recordingHandler.messages).isEqualTo(expectedMessages)
-    }
-
-    private fun waitFor(expectedEvents: Set<Any>) {
-        latch = CountDownLatch(expectedEvents.size)
-        latch.await(10, SECONDS)
+        assertThat(recordingHandler).received(expectedMessages)
     }
 
     private fun prepareAnExistingProduct() {
@@ -174,6 +166,28 @@ class AcceptanceTest {
 
         fun clear() {
             messages.clear()
+        }
+    }
+
+    class RecordingHandlerAssert(recordingHandler: RecordingHandler) :
+        AbstractAssert<RecordingHandlerAssert, RecordingHandler>(recordingHandler, RecordingHandlerAssert::class.java) {
+
+        companion object {
+            fun assertThat(actual: RecordingHandler): RecordingHandlerAssert {
+                return RecordingHandlerAssert(actual)
+            }
+        }
+
+        fun received(expectedEvents: Set<Any>): RecordingHandlerAssert {
+
+            latch = CountDownLatch(expectedEvents.size)
+            latch.await(10, SECONDS)
+
+            if (!actual.messages.containsAll(expectedEvents)) {
+                failWithMessage("Expected messages to be <%s> but was <%s>", expectedEvents, actual.messages)
+            }
+
+            return this
         }
     }
 }

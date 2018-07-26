@@ -1,11 +1,8 @@
 buildscript {
 
-    ext.allRepositories = {
-        jcenter()
+    repositories {
         mavenCentral()
     }
-
-    repositories(allRepositories)
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE"
@@ -14,8 +11,8 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories(allRepositories)
+repositories {
+    mavenCentral()
 }
 
 apply plugin: 'kotlin'
@@ -43,13 +40,12 @@ configurations.all {
 
 dependencies {
 
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.51"
     compile "org.jetbrains.kotlin:kotlin-reflect:1.2.51"
-    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2'
-    compile 'org.apache.commons:commons-lang3:3.7'
+    compile "org.apache.commons:commons-lang3:3.7"
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 
 sourceSets {
