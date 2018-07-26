@@ -6,7 +6,7 @@ DDD with Kotlin
 
 This is a simple demo project to show a Domain Driven Design with Kotlin.
 
-Note that there is a similar version of this demo which using event sourcing at [event-sourcing-with-kotlin](https://github.com/bringmeister/event-sourcing-with-kotlin).
+Note that there is a similar version of this demo which is using event sourcing at [event-sourcing-with-kotlin](https://github.com/bringmeister/event-sourcing-with-kotlin).
 
 ## Run it
 
@@ -64,3 +64,12 @@ After an update was received, the `Product Service` will:
 - Value objects such as `ProductNumber.kt` or `ProductInformation.kt`.
 - A ports-and-adapters package layout.
 - An anti-corruption layer for external events - they will be transformed to internal commands.
+
+## Resources
+
+- https://martinfowler.com/tags/domain%20driven%20design.html
+  * A collection of articles by Martin Fowler. 
+    Each article enlightens a different aspect of DDD.
+- https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+  * First article of series by Microsoft on how to use DDD for microservices.
+    Although the series is using C#, the examples are easy to understand.    
